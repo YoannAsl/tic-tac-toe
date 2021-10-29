@@ -36,6 +36,11 @@ function Game() {
         }
     }
 
+    function resetGame() {
+        setCells(Array(9).fill(null));
+        setIsHumanPlaying(true);
+    }
+
     return (
         <div>
             {winner && `The winner is ${winner}`}
@@ -43,6 +48,7 @@ function Game() {
                 cells={cells}
                 onCellClick={(cellIndex: number) => handleCellClick(cellIndex)}
             />
+            <button onClick={resetGame}>New game</button>
         </div>
     );
 }
