@@ -26,12 +26,14 @@ function Game() {
     const [isHumanPlaying, setIsHumanPlaying] = useState(true);
     const winner = calculateWinner(cells);
 
-    function handleCellClick(i: number) {
+    function handleCellClick(cellIndex: number) {
         const currentCells = [...cells];
-        currentCells[i] = isHumanPlaying ? 'X' : 'O';
 
-        setCells(currentCells);
-        setIsHumanPlaying(!isHumanPlaying);
+        if (currentCells[cellIndex] === null) {
+            currentCells[cellIndex] = isHumanPlaying ? 'X' : 'O';
+            setCells(currentCells);
+            setIsHumanPlaying(!isHumanPlaying);
+        }
     }
 
     return (
@@ -39,7 +41,7 @@ function Game() {
             {winner && `The winner is ${winner}`}
             <Board
                 cells={cells}
-                onCellClick={(i: number) => handleCellClick(i)}
+                onCellClick={(cellIndex: number) => handleCellClick(cellIndex)}
             />
         </div>
     );
