@@ -2,18 +2,21 @@ import React from 'react';
 import styled from 'styled-components';
 import Cell from './Cell';
 
-function Board() {
+interface BoardProps {
+    cells: any[];
+    onCellClick: (index: number) => void;
+}
+
+function Board({ cells, onCellClick }: BoardProps) {
     return (
         <Grid>
-            <Cell />
-            <Cell />
-            <Cell />
-            <Cell />
-            <Cell />
-            <Cell />
-            <Cell />
-            <Cell />
-            <Cell />
+            {cells.map((cell, index) => (
+                <Cell
+                    value={cell}
+                    key={index}
+                    onClick={() => onCellClick(index)}
+                />
+            ))}
         </Grid>
     );
 }

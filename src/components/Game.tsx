@@ -4,7 +4,10 @@ import Board from './Board';
 function Game() {
     return (
         <div>
-            <Board />
+            <Board
+                cells={cells}
+                onCellClick={(i: number) => handleCellClick(i)}
+            />
         </div>
     );
 }
