@@ -37,14 +37,11 @@ function Game() {
             newIsHumanPlaying = !newIsHumanPlaying;
             setIsHumanPlaying(!isHumanPlaying);
 
-            const bestCell = calculateBestCell(
-                currentCells,
-                isHumanPlaying ? 'X' : 'O'
-            );
+            const bestCell = calculateBestCell(currentCells, 'O');
 
             if (bestCell !== -1) {
                 currentCells[bestCell] = newIsHumanPlaying ? 'X' : 'O';
-
+                console.log(currentCells);
                 setCells(currentCells);
                 setIsHumanPlaying(!isHumanPlaying);
             }
@@ -58,7 +55,8 @@ function Game() {
 
     return (
         <div>
-            {winner && `The winner is ${winner}`}
+            {winner && `The winner is ${winner} !`}
+            {tie && `It's a tie !`}
             <Board
                 cells={cells}
                 onCellClick={(cellIndex: number) => handleCellClick(cellIndex)}
@@ -69,7 +67,7 @@ function Game() {
 }
 
 function calculateBestCell(board: any[], player: string) {
-    const opponent = player === 'X' ? 'O' : 'X';
+    const opponent = 'X';
 
     function minimax(board: any[], isMaximizing: boolean, depth = 0) {
         const winner = calculateWinner(board);
@@ -80,7 +78,7 @@ function calculateBestCell(board: any[], player: string) {
 
         const bestCell = {
             cell: -1,
-            score: isMaximizing ? -10 : 10,
+            score: isMaximizing ? -1000 : 1000,
         };
 
         for (let i = 0; i < board.length; i++) {
@@ -88,7 +86,7 @@ function calculateBestCell(board: any[], player: string) {
             if (!board[i]) {
                 board[i] = isMaximizing ? player : opponent;
                 const score = minimax(board, !isMaximizing).score;
-                // board[i] = null
+                board[i] = null;
 
                 if (isMaximizing) {
                     if (score > bestCell.score) {
