@@ -12,6 +12,11 @@ const WINNING_CONFIGURATIONS = [
     [6, 4, 2],
 ];
 
+function checkForTie(cells: any[]) {
+    if (cells.every((cell) => cell !== null)) return true;
+    return false;
+}
+
 function checkForWinner(cells: any[]) {
     for (const config of WINNING_CONFIGURATIONS) {
         const [a, b, c] = config;
@@ -26,6 +31,7 @@ function Game() {
     const [cells, setCells] = useState(Array(9).fill(null));
     const [isHumanPlaying, setIsHumanPlaying] = useState(true);
     const winner = checkForWinner(cells);
+    const tie = checkForTie(cells);
 
     function handleCellClick(cellIndex: number) {
         const currentCells = [...cells];
@@ -71,10 +77,11 @@ function calculateBestCell(board: any[], player: string) {
 
     function minimax(board: any[], isMaximizing: boolean, depth = 0) {
         const winner = checkForWinner(board);
+        const tie = checkForTie(board);
 
         if (winner === player) return { cell: -1, score: 1 };
         if (winner === opponent) return { cell: -1, score: -1 };
-        if (board.every((cell) => cell !== null)) return { cell: -1, score: 0 };
+        if (tie) return { cell: -1, score: 0 };
 
         const bestCell = {
             cell: -1,
