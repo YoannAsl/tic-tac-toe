@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Board from './Board';
 
-const WINNING_CONFIGURATIONS = [
+const WIN_CONDITIONS = [
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
@@ -18,8 +18,8 @@ function checkForTie(cells: any[]) {
 }
 
 function checkForWinner(cells: any[]) {
-    for (const config of WINNING_CONFIGURATIONS) {
-        const [a, b, c] = config;
+    for (const condition of WIN_CONDITIONS) {
+        const [a, b, c] = condition;
         // If a player has a winning config
         if (cells[a] && cells[a] === cells[b] && cells[a] === cells[c])
             return cells[a];
@@ -37,22 +37,20 @@ function Game() {
         const currentCells = [...cells];
 
         if (currentCells[cellIndex] === null) {
-            let isHumanPlaying = true;
+            // let isHumanPlaying = true;
 
-            currentCells[cellIndex] = isHumanPlaying ? 'X' : 'O';
-            isHumanPlaying = !isHumanPlaying;
-            // setIsHumanPlaying(!isHumanPlaying);
+            // currentCells[cellIndex] = isHumanPlaying ? 'X' : 'O';
+            currentCells[cellIndex] = 'X';
+            // isHumanPlaying = !isHumanPlaying;
 
             if (
                 checkForWinner(currentCells) === null &&
                 checkForTie(currentCells) === false
             ) {
                 const bestCell = calculateBestCell(currentCells, 'O');
-
                 if (bestCell !== -1) {
-                    currentCells[bestCell] = isHumanPlaying ? 'X' : 'O';
-                    console.log(currentCells);
-                    // setIsHumanPlaying(!isHumanPlaying);
+                    // currentCells[bestCell] = isHumanPlaying ? 'X' : 'O';
+                    currentCells[bestCell] = 'O';
                 }
             }
             setCells(currentCells);
