@@ -29,7 +29,7 @@ function checkForWinner(cells: any[]) {
 
 function Game() {
     const [cells, setCells] = useState(Array(9).fill(null));
-    const [isHumanPlaying, setIsHumanPlaying] = useState(true);
+    // const [isHumanPlaying, setIsHumanPlaying] = useState(true);
     const winner = checkForWinner(cells);
     const tie = checkForTie(cells);
 
@@ -37,26 +37,31 @@ function Game() {
         const currentCells = [...cells];
 
         if (currentCells[cellIndex] === null) {
-            let newIsHumanPlaying = true;
+            let isHumanPlaying = true;
 
-            currentCells[cellIndex] = newIsHumanPlaying ? 'X' : 'O';
-            newIsHumanPlaying = !newIsHumanPlaying;
-            setIsHumanPlaying(!isHumanPlaying);
+            currentCells[cellIndex] = isHumanPlaying ? 'X' : 'O';
+            isHumanPlaying = !isHumanPlaying;
+            // setIsHumanPlaying(!isHumanPlaying);
 
-            const bestCell = calculateBestCell(currentCells, 'O');
+            if (
+                checkForWinner(currentCells) === null &&
+                checkForTie(currentCells) === false
+            ) {
+                const bestCell = calculateBestCell(currentCells, 'O');
 
-            if (bestCell !== -1) {
-                currentCells[bestCell] = newIsHumanPlaying ? 'X' : 'O';
-                console.log(currentCells);
-                setCells(currentCells);
-                setIsHumanPlaying(!isHumanPlaying);
+                if (bestCell !== -1) {
+                    currentCells[bestCell] = isHumanPlaying ? 'X' : 'O';
+                    console.log(currentCells);
+                    // setIsHumanPlaying(!isHumanPlaying);
+                }
             }
+            setCells(currentCells);
         }
     }
 
     function resetGame() {
         setCells(Array(9).fill(null));
-        setIsHumanPlaying(true);
+        // setIsHumanPlaying(true);
     }
 
     return (
