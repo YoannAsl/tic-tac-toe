@@ -12,7 +12,7 @@ const WINNING_CONFIGURATIONS = [
     [6, 4, 2],
 ];
 
-function calculateWinner(cells: any[]) {
+function checkForWinner(cells: any[]) {
     for (const config of WINNING_CONFIGURATIONS) {
         const [a, b, c] = config;
         // If a player has a winning config
@@ -25,7 +25,7 @@ function calculateWinner(cells: any[]) {
 function Game() {
     const [cells, setCells] = useState(Array(9).fill(null));
     const [isHumanPlaying, setIsHumanPlaying] = useState(true);
-    const winner = calculateWinner(cells);
+    const winner = checkForWinner(cells);
 
     function handleCellClick(cellIndex: number) {
         const currentCells = [...cells];
@@ -70,7 +70,7 @@ function calculateBestCell(board: any[], player: string) {
     const opponent = 'X';
 
     function minimax(board: any[], isMaximizing: boolean, depth = 0) {
-        const winner = calculateWinner(board);
+        const winner = checkForWinner(board);
 
         if (winner === player) return { cell: -1, score: 1 };
         if (winner === opponent) return { cell: -1, score: -1 };
