@@ -20,7 +20,7 @@ function checkForTie(cells: any[]) {
 function checkForWinner(cells: any[]) {
     for (const condition of WIN_CONDITIONS) {
         const [a, b, c] = condition;
-        // If a player has a winning config
+        // If a player has a win condition, return the player
         if (cells[a] && cells[a] === cells[b] && cells[a] === cells[c])
             return cells[a];
     }
@@ -29,27 +29,22 @@ function checkForWinner(cells: any[]) {
 
 function Game() {
     const [cells, setCells] = useState(Array(9).fill(null));
-    // const [isHumanPlaying, setIsHumanPlaying] = useState(true);
     const winner = checkForWinner(cells);
     const tie = checkForTie(cells);
 
     function handleCellClick(cellIndex: number) {
         const currentCells = [...cells];
 
-        if (currentCells[cellIndex] === null) {
-            // let isHumanPlaying = true;
+        if (
+            checkForWinner(currentCells) === null &&
+            checkForTie(currentCells) === false
+        ) {
+            if (currentCells[cellIndex] === null) {
+                currentCells[cellIndex] = 'X';
 
-            // currentCells[cellIndex] = isHumanPlaying ? 'X' : 'O';
-            currentCells[cellIndex] = 'X';
-            // isHumanPlaying = !isHumanPlaying;
-
-            if (
-                checkForWinner(currentCells) === null &&
-                checkForTie(currentCells) === false
-            ) {
+                // AI move
                 const bestCell = calculateBestCell(currentCells, 'O');
                 if (bestCell !== -1) {
-                    // currentCells[bestCell] = isHumanPlaying ? 'X' : 'O';
                     currentCells[bestCell] = 'O';
                 }
             }
@@ -59,7 +54,6 @@ function Game() {
 
     function resetGame() {
         setCells(Array(9).fill(null));
-        // setIsHumanPlaying(true);
     }
 
     return (
@@ -94,8 +88,11 @@ function calculateBestCell(board: any[], player: string) {
         for (let i = 0; i < board.length; i++) {
             // If the cell is not filled
             if (!board[i]) {
+                // Make a move
                 board[i] = isMaximizing ? player : opponent;
+                // Rerun the algorithm with the new move
                 const score = minimax(board, !isMaximizing).score;
+                // Cancel the move
                 board[i] = null;
 
                 if (isMaximizing) {
