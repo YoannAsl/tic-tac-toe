@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Board from './Board';
+import styled from 'styled-components';
 
 const WIN_CONDITIONS = [
     [0, 1, 2],
@@ -57,7 +58,7 @@ function Game() {
     }
 
     return (
-        <div>
+        <Container>
             {winner && `The winner is ${winner} !`}
             {tie && `It's a tie !`}
             <Board
@@ -65,7 +66,7 @@ function Game() {
                 onCellClick={(cellIndex: number) => handleCellClick(cellIndex)}
             />
             <button onClick={resetGame}>New game</button>
-        </div>
+        </Container>
     );
 }
 
@@ -112,5 +113,16 @@ function calculateBestCell(board: any[], player: string) {
     }
     return minimax(board, true).cell;
 }
+
+const Container = styled.main`
+    background-color: #2a2b2e;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    & > button {
+        width: fit-content;
+    }
+`;
 
 export default Game;
