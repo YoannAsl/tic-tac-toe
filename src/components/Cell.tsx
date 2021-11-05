@@ -18,10 +18,10 @@ function Cell({ value, onClick }: CellProps) {
 }
 
 const Container = styled.div`
-    border: 1px solid black;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: white;
     img {
         width: 150px;
         height: 150px;

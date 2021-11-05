@@ -23,6 +23,9 @@ function Board({ cells, onCellClick }: BoardProps) {
 
 const Grid = styled.div`
     display: grid;
+    gap: 1rem;
+    width: fit-content;
+    margin: 1rem 0;
     grid-template-rows: 200px 200px 200px;
     grid-template-columns: 200px 200px 200px;
 `;

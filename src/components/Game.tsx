@@ -120,6 +120,9 @@ const Container = styled.main`
     display: flex;
     flex-direction: column;
     color: white;
+    padding-top: 5rem;
+    box-sizing: border-box;
+    align-items: center;
     & > button {
         width: fit-content;
     }
