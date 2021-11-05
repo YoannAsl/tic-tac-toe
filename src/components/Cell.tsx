@@ -3,8 +3,10 @@ import styled from 'styled-components';
 import circleIcon from '../assets/images/circleIcon.svg';
 import crossIcon from '../assets/images/crossIcon.svg';
 
+export type CellType = null | 'X' | 'O';
+
 interface CellProps {
-    value: string | null;
+    value: CellType;
     onClick: () => void;
 }
 

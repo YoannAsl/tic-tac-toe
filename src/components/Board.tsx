@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import Cell from './Cell';
+import Cell, { CellType } from './Cell';
 
 interface BoardProps {
-    cells: any[];
+    cells: CellType[];
     onCellClick: (index: number) => void;
 }
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Board from './Board';
 import styled from 'styled-components';
+import { CellType } from './Cell';
 
 const WIN_CONDITIONS = [
     [0, 1, 2],
@@ -29,7 +30,7 @@ function checkForWinner(cells: any[]) {
 }
 
 function Game() {
-    const [cells, setCells] = useState(Array(9).fill(null));
+    const [cells, setCells] = useState<CellType[]>(Array(9).fill(null));
     const winner = checkForWinner(cells);
     const tie = checkForTie(cells);
 
