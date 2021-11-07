@@ -1,3 +1,3 @@
 # Tic Tac Toe
 
-Play a game of Tic Tac Toe against a computer that uses a recursive minimax algorithm.
+Play a game of Tic Tac Toe against am AI that uses a recursive Minimax algorithm.
