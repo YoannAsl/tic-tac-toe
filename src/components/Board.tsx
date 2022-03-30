@@ -28,6 +28,14 @@ const Grid = styled.div`
     margin: 1rem 0;
     grid-template-rows: 200px 200px 200px;
     grid-template-columns: 200px 200px 200px;
+    @media only screen and (max-height: 750px) {
+        grid-template-rows: 125px 125px 125px;
+        grid-template-columns: 125px 125px 125px;
+        img {
+            height: 110px;
+            width: 110px;
+        }
+    }
 `;
 
 export default Board;

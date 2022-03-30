@@ -117,7 +117,7 @@ function calculateBestCell(board: any[], player: string) {
 
 const Container = styled.main`
     background-color: #2a2b2e;
-    height: 100vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
     color: white;
